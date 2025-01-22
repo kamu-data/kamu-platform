@@ -6,6 +6,13 @@ members = [
     # Apps
     "src/app/api-server",
     "src/app/oracle-provider",
+    # E2E
+    "src/e2e/app/common",
+    "src/e2e/app/common-macros",
+    "src/e2e/app/kamu-node-puppet",
+    "src/e2e/app/repo-tests",
+    "src/e2e/app/postgres",
+    "src/e2e/app/sqlite",
 ]
 resolver = "2"
 
@@ -15,59 +22,64 @@ resolver = "2"
 graceful-shutdown = { path = "src/utils/graceful-shutdown", version = "0.51.0", default-features = false }
 
 # Utils (core)
-container-runtime = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-database-common = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-database-common-macros = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-http-common = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-init-on-startup = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-internal-error = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-messaging-outbox = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-observability = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-s3-utils = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-test-utils = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-time-source = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
+container-runtime = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+database-common = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+database-common-macros = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+http-common = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+init-on-startup = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+internal-error = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+messaging-outbox = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+observability = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+s3-utils = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+test-utils = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+time-source = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
 
 ## Open Data Fabric
-odf = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false, package = "opendatafabric" }
+odf = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false, package = "opendatafabric" }
 
 # Domain
-kamu-task-system = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-task-system-services = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-flow-system = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-flow-system-services = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-accounts = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-datasets = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
+kamu-task-system = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-task-system-services = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-flow-system = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-flow-system-services = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-accounts = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-datasets = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
 
 # Infra
-kamu = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-accounts-inmem = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-accounts-postgres = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-accounts-services = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-accounts-sqlite = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-adapter-auth-oso-rebac = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-adapter-flight-sql = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-adapter-graphql = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-adapter-http = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-adapter-oauth = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-adapter-odata = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-auth-rebac-inmem = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-auth-rebac-postgres = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-auth-rebac-services = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-auth-rebac-sqlite = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-datasets-inmem = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-datasets-postgres = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-datasets-services = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-datasets-sqlite = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-flow-system-inmem = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-flow-system-postgres = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-flow-system-sqlite = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-messaging-outbox-inmem = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-messaging-outbox-postgres = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-messaging-outbox-sqlite = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-task-system-inmem = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-task-system-postgres = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
-kamu-task-system-sqlite = { git = "https://github.com/kamu-data/kamu-cli", tag = "v0.219.1", version = "0.219.1", default-features = false }
+kamu = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-accounts-inmem = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-accounts-postgres = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-accounts-services = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-accounts-sqlite = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-adapter-auth-oso-rebac = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-adapter-flight-sql = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-adapter-graphql = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-adapter-http = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-adapter-oauth = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-adapter-odata = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-auth-rebac-inmem = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-auth-rebac-postgres = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-auth-rebac-services = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-auth-rebac-sqlite = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-datasets-inmem = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-datasets-postgres = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-datasets-services = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-datasets-sqlite = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-flow-system-inmem = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-flow-system-postgres = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-flow-system-sqlite = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-messaging-outbox-inmem = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-messaging-outbox-postgres = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-messaging-outbox-sqlite = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-task-system-inmem = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-task-system-postgres = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
+kamu-task-system-sqlite = { git = "https://github.com/kamu-data/kamu-cli", branch = "feat/add-static-db-migrators", default-features = false }
 
+# E2E
+kamu-node-e2e-common = { path = "src/e2e/app/common", version = "0.51.0", default-features = false }
+kamu-node-e2e-common-macros = { path = "src/e2e/app/common-macros", version = "0.51.0", default-features = false }
+kamu-node-puppet = { path = "src/e2e/app/kamu-node-puppet", version = "0.51.0", default-features = false }
+kamu-node-e2e-repo-tests = { path = "src/e2e/app/repo-tests", version = "0.51.0", default-features = false }
 
 [workspace.package]
 version = "0.51.0"

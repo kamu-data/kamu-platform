@@ -1,0 +1,42 @@
+[package]
+name = "kamu-node-e2e-repo-tests"
+description = "Shared repository with E2E tests for kamu-node"
+version = { workspace = true }
+homepage = { workspace = true }
+repository = { workspace = true }
+authors = { workspace = true }
+readme = { workspace = true }
+license-file = { workspace = true }
+keywords = { workspace = true }
+include = { workspace = true }
+edition = { workspace = true }
+publish = { workspace = true }
+
+
+[lints]
+workspace = true
+
+
+[lib]
+doctest = false
+
+
+[package.metadata.cargo-udeps.ignore]
+normal = ["kamu-node"]
+
+
+[dependencies]
+kamu-node-e2e-common = { workspace = true }
+
+chrono = { version = "0.4", default-features = false }
+indoc = "2"
+paste = { version = "1", default-features = false }
+pretty_assertions = { version = "1" }
+reqwest = { version = "0.12", default-features = false, features = [] }
+serde_json = { version = "1", default-features = false }
+tempfile = { version = "3" }
+url = { version = "2", default-features = false }
+datafusion = { version = "44", default-features = false, features = [] }
+
+
+[dev-dependencies]

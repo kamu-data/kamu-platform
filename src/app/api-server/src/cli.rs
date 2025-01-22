@@ -30,6 +30,11 @@ pub struct Cli {
     #[arg(long)]
     pub multi_tenant: bool,
 
+    /// E2E test interface: file path from which socket bound address will be
+    /// read out
+    #[arg(long, hide = true)]
+    pub e2e_output_data_path: Option<PathBuf>,
+
     #[command(subcommand)]
     pub command: Command,
 }
