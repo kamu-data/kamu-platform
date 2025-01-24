@@ -1,6 +1,7 @@
 TEST_LOG_PARAMS=RUST_LOG_SPAN_EVENTS=new,close RUST_LOG=debug
 
 POSTGRES_CRATES := ./src/e2e/app/postgres
+SQLITE_CRATES := ./src/e2e/app/sqlite
 
 KAMU_CONTAINER_RUNTIME_TYPE ?= podman
 
@@ -58,7 +59,6 @@ sqlx-local-setup-postgres:
 sqlx-local-setup-sqlite:
 	sqlx database drop -y --database-url sqlite://kamu.sqlite.db
 	sqlx database create --database-url sqlite://kamu.sqlite.db
-	sqlx migrate run --source ./migrations/sqlite --database-url sqlite://kamu.sqlite.db
 	$(foreach crate,$(SQLITE_CRATES),$(call Setup_EnvFile_Sqlite,$(shell pwd),$(crate)))
 
 .PHONY: sqlx-local-clean-postgres

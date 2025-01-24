@@ -135,7 +135,7 @@ impl KamuNodeApiServerHarness {
         Fixture: FnOnce(KamuApiServerClient) -> FixtureResult,
         FixtureResult: Future<Output = ()> + Send + 'static,
     {
-        let kamu = self.into_kamu().await;
+        let kamu = self.into_kamu();
 
         let e2e_data_file_path = kamu.get_e2e_output_data_path();
         let server_run_fut = kamu.start_api_server(e2e_data_file_path.clone());
@@ -148,25 +148,22 @@ impl KamuNodeApiServerHarness {
         Fixture: FnOnce(KamuNodePuppet) -> FixtureResult,
         FixtureResult: Future<Output = ()>,
     {
-        let kamu = self.into_kamu().await;
+        let kamu = self.into_kamu();
 
         fixture(kamu).await;
     }
 
-    async fn into_kamu(self) -> KamuNodePuppet {
+    fn into_kamu(self) -> KamuNodePuppet {
         let KamuNodeApiServerHarnessOptions {
             env_vars,
             kamu_config,
         } = self.options;
 
-        let kamu = KamuNodePuppet::new_workspace_tmp_with(NewWorkspaceOptions {
+        KamuNodePuppet::new_workspace_tmp_with(NewWorkspaceOptions {
             kamu_config,
             env_vars,
             dataset_path: None,
         })
-        .await;
-
-        kamu
     }
 }
 

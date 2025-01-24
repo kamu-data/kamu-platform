@@ -137,7 +137,7 @@ pub async fn build_server(
 
         router = router.nest(
             "/e2e",
-            kamu_adapter_http::e2e::e2e_router(shutdown_notify.clone()).into(),
+            kamu_adapter_http::e2e::e2e_router(shutdown_notify.clone()),
         );
 
         Some(shutdown_notify)

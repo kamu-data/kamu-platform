@@ -31,11 +31,11 @@ impl KamuNodePuppet {
         }
     }
 
-    pub async fn new_workspace_tmp() -> Self {
-        Self::new_workspace_tmp_with(NewWorkspaceOptions::default()).await
+    pub fn new_workspace_tmp() -> Self {
+        Self::new_workspace_tmp_with(NewWorkspaceOptions::default())
     }
 
-    pub async fn new_workspace_tmp_with(options: NewWorkspaceOptions) -> Self {
+    pub fn new_workspace_tmp_with(options: NewWorkspaceOptions) -> Self {
         let temp_dir = tempfile::tempdir().unwrap();
 
         if let Some(mut config) = options.kamu_config {
