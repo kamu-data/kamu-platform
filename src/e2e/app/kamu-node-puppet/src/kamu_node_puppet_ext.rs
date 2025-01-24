@@ -11,8 +11,6 @@ use std::net::Ipv4Addr;
 use std::path::PathBuf;
 
 use async_trait::async_trait;
-use chrono::{DateTime, Utc};
-use serde::Deserialize;
 
 use crate::{ExecuteCommandResult, KamuNodePuppet};
 
@@ -215,46 +213,6 @@ impl KamuNodePuppetExt for KamuNodePuppet {
 pub struct ServerOutput {
     pub stdout: String,
     pub stderr: String,
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-#[derive(Debug, Deserialize)]
-#[serde(rename_all = "PascalCase", deny_unknown_fields)]
-pub struct DatasetRecord {
-    #[serde(rename = "ID")]
-    pub id: odf::DatasetID,
-    pub name: odf::DatasetName,
-    // CLI returns regular ENUM DatasetKind(Root/Derivative) for local datasets
-    // but for remote it is Remote(DatasetKind) type
-    pub kind: String,
-    pub head: odf::Multihash,
-    pub pulled: Option<DateTime<Utc>>,
-    pub records: usize,
-    pub blocks: usize,
-    pub size: usize,
-    pub watermark: Option<DateTime<Utc>>,
-}
-
-#[derive(Debug, PartialEq, Eq, Deserialize)]
-#[serde(rename_all = "PascalCase", deny_unknown_fields)]
-pub struct RepoAlias {
-    pub dataset: odf::DatasetAlias,
-    pub kind: String,
-    pub alias: String,
-}
-
-#[derive(Debug, PartialEq, Eq)]
-pub struct BlockRecord {
-    pub block_hash: odf::Multihash,
-    pub block: odf::MetadataBlock,
-}
-
-#[derive(Debug, PartialEq, Eq, Deserialize)]
-#[serde(rename_all = "PascalCase", deny_unknown_fields)]
-pub struct RepoRecord {
-    pub name: odf::RepoName,
-    pub url: url::Url,
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

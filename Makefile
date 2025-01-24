@@ -76,13 +76,22 @@ sqlx-local-clean-sqlite:
 # Test
 ###############################################################################
 
+# Run all tests excluding databases using nextest and configured concurrency limits
 .PHONY: test
 test:
+	$(TEST_LOG_PARAMS) cargo nextest run -E 'not (test(::database::))'
+
+.PHONY: test-full
+test-full:
 	$(TEST_LOG_PARAMS) cargo nextest run
 
 .PHONY: test-e2e
 test-e2e:
 	$(TEST_LOG_PARAMS) cargo nextest run -E 'test(::e2e::)'
+
+.PHONY: test-database
+test-database:
+	$(TEST_LOG_PARAMS) cargo nextest run -E 'test(::database::)'
 
 .PHONY: test-no-oracle
 test-no-oracle:

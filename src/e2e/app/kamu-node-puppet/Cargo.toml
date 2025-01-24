@@ -23,8 +23,6 @@ doctest = false
 
 [features]
 extensions = [
-    # Internal
-    "dep:odf",
     # External
     "dep:async-trait",
     "dep:datafusion",
@@ -41,9 +39,6 @@ assert_cmd = "2"
 chrono = { version = "0.4", default-features = false, features = ["alloc"] }
 tempfile = "3"
 tokio = { version = "1", default-features = false, features = ["rt"] }
-
-# Feature: extensions
-odf = { optional = true, workspace = true, features = ["testing"] }
 
 async-trait = { optional = true, version = "0.1" }
 datafusion = { optional = true, version = "44", default-features = false }
