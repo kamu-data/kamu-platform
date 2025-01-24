@@ -1,0 +1,40 @@
+[package]
+name = "kamu-node-e2e-postgres"
+description = "Postgres-specific E2E tests"
+version = { workspace = true }
+homepage = { workspace = true }
+repository = { workspace = true }
+authors = { workspace = true }
+readme = { workspace = true }
+license-file = { workspace = true }
+keywords = { workspace = true }
+include = { workspace = true }
+edition = { workspace = true }
+publish = { workspace = true }
+
+
+[lints]
+workspace = true
+
+
+[lib]
+doctest = false
+
+
+[dependencies]
+# We have only tests in this crate
+
+
+[dev-dependencies]
+database-common = { workspace = true,  default-features = false, features = ["testing"] }
+kamu-node-e2e-common = { workspace = true }
+kamu-node-e2e-repo-tests = { workspace = true }
+
+indoc = "2"
+sqlx = { version = "0.8", default-features = false, features = [
+    "macros",
+    "postgres",
+] }
+test-group = { version = "1" }
+test-log = { version = "0.2", features = ["trace"] }
+tokio = { version = "1", default-features = false, features = [] }

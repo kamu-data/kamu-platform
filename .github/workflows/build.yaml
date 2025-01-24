@@ -53,6 +53,15 @@ jobs:
       CARGO_FLAGS: --profile ci --features kamu/ingest-ftp
       NEXTEST_FLAGS: --cargo-profile ci --features kamu/ingest-ftp
       KAMU_CONTRACTS_DIR: ../../../kamu-contracts
+    services:
+      postgres:
+        image: 'postgres:16'
+        env:
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: root
+          POSTGRES_DB: kamu-test
+        ports:
+          - 5432:5432
     steps:
       - uses: actions/checkout@v4
       - uses: actions/checkout@v4
@@ -76,7 +85,22 @@ jobs:
         run: |
           npm ci
           forge build
-      - name: Run tests
-        run: cargo nextest run ${{ env.NEXTEST_FLAGS }}
+
+      - name: Run main set of tests
+        run: cargo nextest run ${{ env.NEXTEST_FLAGS }} -E '!(test(::database::) | test(::spark::)| test(::flink::))'
+
+      - name: SQLite database tests
+        env:
+          SQLX_OFFLINE: false
+          DATABASE_URL: sqlite://kamu.sqlite.db
+        # platform(target) is a workaround for Windows only issue in cargo-nextest upon proc macro crates
+        run: cargo nextest run ${{ env.NEXTEST_FLAGS }} -E 'platform(target) & test(::sqlite::)'
+
+      - name: Postgres database tests
+        env:
+          SQLX_OFFLINE: false
+          DATABASE_URL: postgres://root:root@localhost:5432/kamu-test
+        run: cargo nextest run ${{ env.NEXTEST_FLAGS }} -E 'platform(target) & test(::postgres::)'
+
       - name: Check git diff
         run: git diff && git diff-index --quiet HEAD

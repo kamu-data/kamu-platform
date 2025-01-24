@@ -7,7 +7,9 @@
 // the Business Source License, use of this software will be governed
 // by the Apache License, Version 2.0.
 
+use std::future::{Future, IntoFuture};
 use std::path::{Path, PathBuf};
+use std::pin::Pin;
 use std::sync::Arc;
 
 use arrow_flight::sql::SqlInfo;
@@ -144,14 +146,16 @@ pub async fn run(args: cli::Cli, config: ApiServerConfig) -> Result<(), Internal
             // that does not contain any auth subject, thus they will rely on
             // their own middlewares to authenticate per request / session and execute
             // all processing in the user context.
-            let (http_server, local_addr) = crate::http_server::build_server(
-                address,
-                c.http_port,
-                final_catalog.clone(),
-                tenancy_config,
-                ui_config,
-            )
-            .await?;
+            let (http_server, local_addr, maybe_shutdown_notify) =
+                crate::http_server::build_server(
+                    address,
+                    c.http_port,
+                    final_catalog.clone(),
+                    tenancy_config,
+                    ui_config,
+                    args.e2e_output_data_path.as_ref(),
+                )
+                .await?;
 
             let flightsql_server = crate::flightsql_server::FlightSqlServer::new(
                 address,
@@ -189,19 +193,27 @@ pub async fn run(args: cli::Cli, config: ApiServerConfig) -> Result<(), Internal
                 "Serving traffic"
             );
 
-            let http_server = Box::pin(async move {
-                let server_with_graceful_shutdown =
-                    http_server.with_graceful_shutdown(async move {
-                        shutdown_requested.await;
-                    });
+            let server_run_fut: Pin<Box<dyn Future<Output = _>>> =
+                if let Some(shutdown_notify) = maybe_shutdown_notify {
+                    Box::pin(async move {
+                        let server_with_graceful_shutdown =
+                            http_server.with_graceful_shutdown(async move {
+                                tokio::select! {
+                                    _ = shutdown_requested => {}
+                                    _ = shutdown_notify.notified() => {}
+                                }
+                            });
 
-                server_with_graceful_shutdown.await
-            });
+                        server_with_graceful_shutdown.await
+                    })
+                } else {
+                    Box::pin(http_server.into_future())
+                };
 
             // Run phase
             // TODO: PERF: Do we need to spawn these into separate tasks?
             tokio::select! {
-                res = http_server => { res.int_err() },
+                res = server_run_fut => { res.int_err() },
                 res = flightsql_server.run() => { res.int_err() },
                 res = task_agent.run() => { res.int_err() },
                 res = flow_agent.run() => { res.int_err() },

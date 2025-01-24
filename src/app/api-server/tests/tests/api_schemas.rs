@@ -34,12 +34,13 @@ async fn update_api_schemas() {
 
 async fn get_openapi_schema(tenancy_config: TenancyConfig) -> String {
     // Starts the HTTP server and fetches schema from the endpoint
-    let (server, addr) = kamu_api_server::http_server::build_server(
+    let (server, addr, _) = kamu_api_server::http_server::build_server(
         "127.0.0.1".parse().unwrap(),
         None,
         dill::Catalog::builder().build(),
         tenancy_config,
         UIConfiguration::default(),
+        None,
     )
     .await
     .unwrap();

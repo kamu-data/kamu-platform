@@ -1,0 +1,48 @@
+[package]
+name = "kamu-node-puppet"
+description = "Controller for kamu-node process"
+version = { workspace = true }
+homepage = { workspace = true }
+repository = { workspace = true }
+authors = { workspace = true }
+readme = { workspace = true }
+license-file = { workspace = true }
+keywords = { workspace = true }
+include = { workspace = true }
+edition = { workspace = true }
+publish = { workspace = true }
+
+
+[lints]
+workspace = true
+
+
+[lib]
+doctest = false
+
+
+[features]
+extensions = [
+    # External
+    "dep:async-trait",
+    "dep:indoc",
+    "dep:pretty_assertions",
+    "dep:serde",
+]
+
+
+[dependencies]
+# No features
+assert_cmd = "2"
+tempfile = "3"
+tokio = { version = "1", default-features = false, features = ["rt"] }
+
+async-trait = { optional = true, version = "0.1" }
+indoc = { optional = true, version = "2" }
+pretty_assertions = { optional = true, version = "1" }
+serde = { optional = true, version = "1", default-features = false, features = [
+    "derive",
+] }
+
+
+[dev-dependencies]
